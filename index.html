@@ -1,0 +1,3709 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Këndi i Ndërmjetësimit — V.2.3</title>
+
+<style>
+:root{
+  --navy:#071a3d;
+  --navy2:#0d2d63;
+  --blue:#1267d6;
+  --yellow:#ffd43b;
+  --gold:#f5b900;
+  --white:#ffffff;
+  --light:#f4f7fc;
+  --text:#18243a;
+  --muted:#718096;
+  --green:#18a66a;
+  --red:#e53935;
+  --border:#e1e7f0;
+  --shadow:0 10px 30px rgba(7,26,61,.08);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:var(--light);
+  color:var(--text);
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.loginPage{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top left,#1d63c8 0,#071a3d 45%,#020914 100%);
+}
+
+.loginBox{
+  width:100%;
+  max-width:430px;
+  background:white;
+  border-radius:28px;
+  padding:36px;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  text-align:center;
+}
+
+.logoCircle{
+  width:88px;
+  height:88px;
+  border-radius:26px;
+  background:linear-gradient(135deg,var(--yellow),#fff2a9);
+  color:var(--navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:34px;
+  font-weight:900;
+}
+
+.loginBox h1{
+  color:var(--navy);
+  margin-top:18px;
+  font-size:24px;
+}
+
+.loginBox p{
+  color:var(--muted);
+  margin:8px 0 24px;
+}
+
+.input{
+  width:100%;
+  padding:13px 15px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+  font-size:15px;
+  margin:6px 0 11px;
+  background:white;
+}
+
+.input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(18,103,214,.12);
+}
+
+textarea.input{
+  min-height:120px;
+  resize:vertical;
+}
+
+.btn{
+  border:0;
+  padding:12px 17px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.2s;
+  font-size:14px;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btnPrimary{
+  background:var(--blue);
+  color:white;
+}
+
+.btnYellow{
+  background:var(--yellow);
+  color:var(--navy);
+}
+
+.btnGreen{
+  background:var(--green);
+  color:white;
+}
+
+.btnRed{
+  background:var(--red);
+  color:white;
+}
+
+.btnGray{
+  background:#edf1f6;
+  color:var(--text);
+}
+
+.full{
+  width:100%;
+}
+
+.loginError{
+  display:none;
+  background:#ffe5e5;
+  color:#b91c1c;
+  padding:11px;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
+  display:none;
+  min-height:100vh;
+}
+
+.layout{
+  display:flex;
+  min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  width:260px;
+  background:linear-gradient(180deg,var(--navy),#0a2858);
+  color:white;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  padding:18px 13px;
+  overflow-y:auto;
+}
+
+.brand{
+  padding:10px 9px 22px;
+  margin-bottom:15px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.brandLogo{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:var(--yellow);
+  color:var(--navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:20px;
+  float:left;
+  margin-right:10px;
+}
+
+.brand strong{
+  display:block;
+  padding-top:3px;
+}
+
+.brand small{
+  color:#b9c8df;
+}
+
+.navBtn{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#dce7f8;
+  padding:13px 14px;
+  text-align:left;
+  border-radius:12px;
+  cursor:pointer;
+  margin-bottom:5px;
+  font-size:14px;
+  position:relative;
+}
+
+.navBtn:hover,
+.navBtn.active{
+  background:rgba(255,255,255,.12);
+  color:white;
+}
+
+.navBtn span:first-child{
+  margin-right:8px;
+}
+
+.menuBadge{
+  position:absolute;
+  right:10px;
+  top:9px;
+  background:#ff3030;
+  color:white;
+  min-width:20px;
+  height:20px;
+  padding:2px 6px;
+  border-radius:20px;
+  text-align:center;
+  font-size:11px;
+  display:none;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  margin-left:260px;
+  width:calc(100% - 260px);
+}
+
+.topbar{
+  height:70px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  position:sticky;
+  top:0;
+  z-index:30;
+}
+
+.topTitle{
+  color:var(--navy);
+  font-size:20px;
+  font-weight:800;
+}
+
+.userBox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  background:var(--blue);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+}
+
+.content{
+  padding:25px;
+  max-width:1450px;
+  margin:auto;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.pageTitle{
+  margin-bottom:20px;
+}
+
+.pageTitle h2{
+  color:var(--navy);
+  margin-bottom:5px;
+}
+
+.pageTitle p{
+  color:var(--muted);
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:20px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.stat{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stat h3{
+  color:var(--navy);
+  font-size:28px;
+}
+
+.stat p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:3px;
+}
+
+.statIcon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  background:#eaf2ff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:22px;
+}
+
+/* =========================
+   PANEL
+========================= */
+
+.panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+}
+
+.panel h3{
+  color:var(--navy);
+  margin-bottom:15px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.tableWrap{
+  overflow:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  background:#f7f9fc;
+  color:var(--navy);
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.status.active{
+  background:#dcf8ea;
+  color:#087542;
+}
+
+.status.blocked{
+  background:#ffe2e2;
+  color:#b91c1c;
+}
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+.notification{
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  margin-bottom:10px;
+  background:white;
+  position:relative;
+}
+
+.notification.unread{
+  border-left:5px solid var(--blue);
+  background:#f5f9ff;
+}
+
+.notification h4{
+  color:var(--navy);
+  margin-bottom:5px;
+}
+
+.notification p{
+  color:#4a5568;
+  line-height:1.5;
+}
+
+.notification small{
+  color:var(--muted);
+  display:block;
+  margin-top:8px;
+}
+
+.unreadDot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ff3030;
+  position:absolute;
+  right:16px;
+  top:17px;
+}
+
+/* =========================
+   QR
+========================= */
+
+.qrBox{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:25px;
+}
+
+.qrPreview{
+  min-height:350px;
+  border:1px dashed #cbd5e1;
+  background:#f8fafc;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.qrPreview img{
+  width:280px;
+  max-width:100%;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.adminGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+/* =========================
+   VERSION CREATOR
+========================= */
+
+.versionCreator{
+  border:2px solid #e6c73a;
+  background:linear-gradient(
+    135deg,
+    #fffdf1,
+    #fff8cf
+  );
+}
+
+.codeEditor{
+  width:100%;
+  min-height:330px;
+  background:#07111f;
+  color:#d7e6ff;
+  border:0;
+  border-radius:15px;
+  padding:18px;
+  resize:vertical;
+  outline:none;
+  font-family:Consolas,Monaco,monospace;
+  font-size:13px;
+  line-height:1.55;
+  margin-top:8px;
+}
+
+.codeEditor:focus{
+  box-shadow:0 0 0 3px rgba(18,103,214,.2);
+}
+
+.versionSuccess{
+  display:none;
+  background:#dcf8ea;
+  color:#087542;
+  border:1px solid #9ee0bc;
+  padding:14px;
+  border-radius:12px;
+  margin-top:14px;
+  font-weight:bold;
+}
+
+.versionHistory{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:17px;
+  margin-bottom:12px;
+  background:#fff;
+}
+
+.versionHistoryTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.versionTag{
+  display:inline-block;
+  background:var(--navy);
+  color:white;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.versionDate{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.codeView{
+  display:none;
+  margin-top:14px;
+  background:#07111f;
+  color:#d7e6ff;
+  padding:15px;
+  border-radius:12px;
+  white-space:pre-wrap;
+  word-break:break-word;
+  font-family:Consolas,monospace;
+  font-size:12px;
+  max-height:350px;
+  overflow:auto;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(3,16,39,.82);
+  backdrop-filter:blur(7px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:5000;
+  padding:20px;
+}
+
+.modalBox{
+  width:100%;
+  max-width:430px;
+  background:white;
+  border-radius:23px;
+  padding:28px;
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+
+.modalBox h2{
+  color:var(--navy);
+  margin-bottom:8px;
+}
+
+.modalBox p{
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+/* =========================
+   BLOCKED
+========================= */
+
+.blockedPage{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#071a3d,#020a19);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+  z-index:10000;
+}
+
+.blockedBox{
+  max-width:500px;
+  background:white;
+  padding:40px;
+  border-radius:25px;
+}
+
+.blockedIcon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.blockedBox h1{
+  color:var(--red);
+  margin-bottom:10px;
+}
+
+.blockedBox p{
+  color:#4a5568;
+  line-height:1.6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  text-align:center;
+  color:#8a96a8;
+  font-size:12px;
+  padding:30px 10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:950px){
+
+  .sidebar{
+    width:220px;
+  }
+
+  .main{
+    margin-left:220px;
+    width:calc(100% - 220px);
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .qrBox,
+  .adminGrid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+
+  .layout{
+    display:block;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+    position:relative;
+  }
+
+  .content{
+    padding:15px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginPage" class="loginPage">
+
+  <div class="loginBox">
+
+    <div class="logoCircle">
+      KN
+    </div>
+
+    <h1>KËNDI I NDËRMJETËSIMIT</h1>
+
+    <p>
+      Hyr në sistemin e menaxhimit
+    </p>
+
+    <div id="loginError" class="loginError"></div>
+
+    <input
+      id="username"
+      class="input"
+      placeholder="Përdoruesi"
+    >
+
+    <input
+      id="password"
+      class="input"
+      type="password"
+      placeholder="Fjalëkalimi"
+    >
+
+    <button
+      class="btn btnPrimary full"
+      onclick="login()"
+    >
+      🔐 Hyr në sistem
+    </button>
+
+    <div style="
+      margin-top:18px;
+      color:#8995a8;
+      font-size:12px
+    ">
+      Këndi i Ndërmjetësimit • V.2.3
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app">
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+
+    <div class="brandLogo">
+      KN
+    </div>
+
+    <strong>
+      Këndi i Ndërmjetësimit
+    </strong>
+
+    <small>
+      Versioni V.2.3
+    </small>
+
+    <div style="clear:both"></div>
+
+  </div>
+
+
+  <button
+    class="navBtn active"
+    onclick="showSection('home',this)"
+  >
+    <span>🏠</span>
+    Kryefaqja
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showSection('cases',this)"
+  >
+    <span>📁</span>
+    Rastet
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showSection('agreements',this)"
+  >
+    <span>🤝</span>
+    Ndërmjetësimet
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showSection('notifications',this)"
+  >
+    <span>🔔</span>
+    Njoftimet
+
+    <span
+      id="menuNotificationBadge"
+      class="menuBadge"
+    >
+      0
+    </span>
+
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showSection('contact',this)"
+  >
+    <span>✉️</span>
+    Kontakto administratën
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showSection('qr',this)"
+  >
+    <span>📱</span>
+    QR Link
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="openAdminLogin()"
+  >
+    <span>⚙️</span>
+    Administrata
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="logout()"
+    style="
+      margin-top:20px;
+      background:rgba(229,57,53,.12);
+      color:#ffb4b4
+    "
+  >
+    <span>🚪</span>
+    Dil
+  </button>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+
+  <div
+    class="topTitle"
+    id="topTitle"
+  >
+    Kryefaqja
+  </div>
+
+  <div class="userBox">
+
+    <strong id="currentUserName">
+      Përdorues
+    </strong>
+
+    <div
+      class="avatar"
+      id="avatar"
+    >
+      U
+    </div>
+
+  </div>
+
+</header>
+
+
+<div class="content">
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section
+  id="home"
+  class="section active"
+>
+
+  <div class="pageTitle">
+
+    <h2>🏠 Kryefaqja</h2>
+
+    <p>
+      Mirë se erdhe në Këndi i Ndërmjetësimit.
+    </p>
+
+  </div>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+
+          <h3 id="statUsers">
+            0
+          </h3>
+
+          <p>
+            Përdorues
+          </p>
+
+        </div>
+
+        <div class="statIcon">
+          👥
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+
+          <h3 id="statCases">
+            0
+          </h3>
+
+          <p>
+            Raste
+          </p>
+
+        </div>
+
+        <div class="statIcon">
+          📁
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+
+          <h3 id="statAgreements">
+            0
+          </h3>
+
+          <p>
+            Ndërmjetësime
+          </p>
+
+        </div>
+
+        <div class="statIcon">
+          🤝
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat">
+
+        <div>
+
+          <h3 id="statUnread">
+            0
+          </h3>
+
+          <p>
+            Njoftime të palexuara
+          </p>
+
+        </div>
+
+        <div class="statIcon">
+          🔔
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="panel">
+
+    <h3>
+      🆕 Versioni i fundit
+    </h3>
+
+    <div id="latestUpdate">
+      Nuk ka ende versione të ruajtura.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CASES
+========================= -->
+
+<section
+  id="cases"
+  class="section"
+>
+
+  <div class="pageTitle">
+
+    <h2>📁 Rastet</h2>
+
+    <p>
+      Menaxho rastet e ndërmjetësimit.
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <button
+      class="btn btnPrimary"
+      onclick="addCase()"
+    >
+      ➕ Shto rast
+    </button>
+
+    <div style="height:15px"></div>
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Rasti</th>
+            <th>Data</th>
+            <th>Statusi</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="casesTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     AGREEMENTS
+========================= -->
+
+<section
+  id="agreements"
+  class="section"
+>
+
+  <div class="pageTitle">
+
+    <h2>🤝 Ndërmjetësimet</h2>
+
+    <p>
+      Marrëveshjet e krijuara në sistem.
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <button
+      class="btn btnGreen"
+      onclick="addAgreement()"
+    >
+      ➕ Krijo marrëveshje
+    </button>
+
+    <div style="height:15px"></div>
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>ID</th>
+            <th>Palët</th>
+            <th>Data</th>
+            <th>Statusi</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="agreementsTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     NOTIFICATIONS
+========================= -->
+
+<section
+  id="notifications"
+  class="section"
+>
+
+  <div class="pageTitle">
+
+    <h2>🔔 Njoftimet</h2>
+
+    <p>
+      Këtu shfaqen njoftimet e tua.
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <button
+      class="btn btnGray"
+      onclick="markAllRead()"
+    >
+      ✓ Shëno të gjitha si të lexuara
+    </button>
+
+    <div style="height:18px"></div>
+
+    <div id="notificationList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+  id="contact"
+  class="section"
+>
+
+  <div class="pageTitle">
+
+    <h2>
+      ✉️ Kontakto administratën
+    </h2>
+
+    <p>
+      Dërgo një mesazh te administratori.
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <label>
+      Subjekti
+    </label>
+
+    <input
+      id="contactSubject"
+      class="input"
+      placeholder="Subjekti"
+    >
+
+
+    <label>
+      Mesazhi
+    </label>
+
+    <textarea
+      id="contactMessage"
+      class="input"
+      placeholder="Shkruaj mesazhin..."
+    ></textarea>
+
+
+    <button
+      class="btn btnPrimary"
+      onclick="sendEmail()"
+    >
+      ✉️ Dërgo te administrata
+    </button>
+
+
+    <p style="
+      margin-top:15px;
+      color:#718096;
+      font-size:13px
+    ">
+      Administratori:
+      musahalili49@gmail.com
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     QR
+========================= -->
+
+<section
+  id="qr"
+  class="section"
+>
+
+  <div class="pageTitle">
+
+    <h2>
+      📱 QR Link
+    </h2>
+
+    <p>
+      Vendos vetë linkun që dëshiron të hapet nga QR.
+    </p>
+
+  </div>
+
+
+  <div class="panel">
+
+    <div class="qrBox">
+
+      <div>
+
+        <h3>
+          🔗 Linku i QR
+        </h3>
+
+        <input
+          id="qrLink"
+          class="input"
+          placeholder="https://..."
+        >
+
+
+        <button
+          class="btn btnYellow"
+          onclick="generateQR()"
+        >
+          📱 Gjenero QR
+        </button>
+
+
+        <button
+          class="btn btnGreen"
+          onclick="saveQR()"
+        >
+          💾 Ruaj QR
+        </button>
+
+      </div>
+
+
+      <div class="qrPreview">
+
+        <div style="text-align:center">
+
+          <img
+            id="qrImage"
+            style="display:none"
+            alt="QR"
+          >
+
+          <div id="qrEmpty">
+            QR do të shfaqet këtu.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<section
+  id="admin"
+  class="section"
+>
+
+  <div class="pageTitle">
+
+    <h2>
+      ⚙️ Administrata
+    </h2>
+
+    <p>
+      Menaxhimi i përdoruesve, njoftimeve,
+      versioneve dhe QR.
+    </p>
+
+  </div>
+
+
+  <div class="adminGrid">
+
+
+    <!-- ADD USER -->
+
+    <div class="panel">
+
+      <h3>
+        👥 Shto përdorues
+      </h3>
+
+      <input
+        id="newName"
+        class="input"
+        placeholder="Emri dhe mbiemri"
+      >
+
+      <input
+        id="newUsername"
+        class="input"
+        placeholder="Përdoruesi"
+      >
+
+      <input
+        id="newPassword"
+        class="input"
+        type="password"
+        placeholder="Fjalëkalimi"
+      >
+
+      <select
+        id="newRole"
+        class="input"
+      >
+
+        <option value="user">
+          Përdorues
+        </option>
+
+        <option value="admin">
+          Administrator
+        </option>
+
+      </select>
+
+
+      <button
+        class="btn btnPrimary"
+        onclick="addUser()"
+      >
+        ➕ Shto përdoruesin
+      </button>
+
+    </div>
+
+
+    <!-- SEND NOTIFICATION -->
+
+    <div class="panel">
+
+      <h3>
+        🔔 Dërgo njoftim
+      </h3>
+
+      <select
+        id="notificationUser"
+        class="input"
+      ></select>
+
+
+      <textarea
+        id="notificationMessage"
+        class="input"
+        placeholder="Shkruaj njoftimin..."
+      ></textarea>
+
+
+      <button
+        class="btn btnYellow"
+        onclick="sendSimpleNotification()"
+      >
+        🔔 Dërgo njoftimin
+      </button>
+
+    </div>
+
+
+    <!-- NEW VERSION -->
+
+    <div class="panel versionCreator">
+
+      <h3>
+        🆕 Krijo version të ri
+      </h3>
+
+      <p style="
+        color:#718096;
+        font-size:13px;
+        line-height:1.5;
+        margin-bottom:10px
+      ">
+        Këtu administratori vendos
+        vetëm kodimin e ri. Sistemi e
+        ruan automatikisht si version
+        të ri.
+      </p>
+
+
+      <textarea
+        id="newVersionCode"
+        class="codeEditor"
+        placeholder="Ngjite këtu kodimin e ri..."
+      ></textarea>
+
+
+      <button
+        class="btn btnPrimary"
+        style="margin-top:12px"
+        onclick="continueVersion()"
+      >
+        ➡️ Vazhdo
+      </button>
+
+
+      <div
+        id="versionSuccess"
+        class="versionSuccess"
+      >
+        ✅ Versioni u ruajt me sukses!
+      </div>
+
+    </div>
+
+
+    <!-- QR ADMIN -->
+
+    <div class="panel">
+
+      <h3>
+        📱 QR i sistemit
+      </h3>
+
+      <p style="
+        color:#718096;
+        font-size:13px;
+        margin-bottom:12px
+      ">
+        Vendos linkun e GitHub-it këtu.
+      </p>
+
+
+      <input
+        id="adminQRLink"
+        class="input"
+        placeholder="https://..."
+      >
+
+
+      <button
+        class="btn btnYellow"
+        onclick="saveAdminQR()"
+      >
+        💾 Ruaj QR
+      </button>
+
+
+      <button
+        class="btn btnPrimary"
+        onclick="generateAdminQR()"
+      >
+        📱 Gjenero QR
+      </button>
+
+
+      <div style="
+        text-align:center;
+        margin-top:15px
+      ">
+
+        <img
+          id="adminQRImage"
+          style="
+            width:220px;
+            display:none
+          "
+          alt="QR"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- USERS -->
+
+  <div class="panel">
+
+    <h3>
+      👤 Menaxhimi i përdoruesve
+    </h3>
+
+    <div class="tableWrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Emri</th>
+            <th>Përdoruesi</th>
+            <th>Roli</th>
+            <th>Statusi</th>
+            <th>Veprime</th>
+          </tr>
+
+        </thead>
+
+        <tbody id="usersTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- VERSION HISTORY -->
+
+  <div class="panel">
+
+    <h3>
+      📚 Historiku i versioneve
+    </h3>
+
+    <div id="versionsList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  © 2026 Musa Halili — Të gjitha të drejtat e rezervuara.
+  <br>
+
+  Këndi i Ndërmjetësimit • Projekt dhe zhvillim nga Musa Halili • V.2.3
+
+</div>
+
+
+</div>
+</main>
+
+</div>
+</div>
+
+
+<!-- =========================
+     ADMIN LOGIN
+========================= -->
+
+<div
+  id="adminLoginPage"
+  class="modal"
+>
+
+  <div class="modalBox">
+
+    <h2>
+      ⚙️ Administrata
+    </h2>
+
+    <p>
+      Hyrja në administratë është e mbrojtur me fjalëkalim.
+    </p>
+
+
+    <div
+      id="adminLoginError"
+      class="loginError"
+    ></div>
+
+
+    <input
+      id="adminPassword"
+      class="input"
+      type="password"
+      placeholder="Fjalëkalimi i administratës"
+    >
+
+
+    <button
+      class="btn btnPrimary full"
+      onclick="loginAdmin()"
+    >
+      🔐 Hyr në Administratë
+    </button>
+
+
+    <button
+      class="btn btnGray full"
+      style="margin-top:10px"
+      onclick="closeAdminLogin()"
+    >
+      Anulo
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     BLOCKED
+========================= -->
+
+<div
+  id="blockedPage"
+  class="blockedPage"
+>
+
+  <div class="blockedBox">
+
+    <div class="blockedIcon">
+      🔒
+    </div>
+
+    <h1>
+      JU JENI BLLOKUAR
+    </h1>
+
+    <p>
+      Llogaria juaj është bllokuar
+      nga administratori.
+    </p>
+
+
+    <button
+      class="btn btnGray"
+      style="margin-top:20px"
+      onclick="location.reload()"
+    >
+      Kthehu
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   SETTINGS
+========================= */
+
+const ADMIN_PASSWORD = "admin123";
+
+
+/* =========================
+   STORAGE
+========================= */
+
+let users =
+  JSON.parse(
+    localStorage.getItem("kn_users") || "null"
+  );
+
+
+if(!users){
+
+  users = [
+
+    {
+      id:1,
+      name:"Administratori",
+      username:"admin",
+      password:"admin123",
+      role:"admin",
+      blocked:false
+    }
+
+  ];
+
+}
+
+
+let cases =
+  JSON.parse(
+    localStorage.getItem("kn_cases") || "[]"
+  );
+
+
+let agreements =
+  JSON.parse(
+    localStorage.getItem("kn_agreements") || "[]"
+  );
+
+
+let notifications =
+  JSON.parse(
+    localStorage.getItem("kn_notifications") || "[]"
+  );
+
+
+let versions =
+  JSON.parse(
+    localStorage.getItem("kn_versions") || "[]"
+  );
+
+
+let qrLink =
+  localStorage.getItem("kn_qr_link") || "";
+
+
+let currentUser = null;
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveAll(){
+
+  localStorage.setItem(
+    "kn_users",
+    JSON.stringify(users)
+  );
+
+  localStorage.setItem(
+    "kn_cases",
+    JSON.stringify(cases)
+  );
+
+  localStorage.setItem(
+    "kn_agreements",
+    JSON.stringify(agreements)
+  );
+
+  localStorage.setItem(
+    "kn_notifications",
+    JSON.stringify(notifications)
+  );
+
+  localStorage.setItem(
+    "kn_versions",
+    JSON.stringify(versions)
+  );
+
+  localStorage.setItem(
+    "kn_qr_link",
+    qrLink
+  );
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+  const username =
+    document.getElementById("username")
+      .value.trim();
+
+  const password =
+    document.getElementById("password")
+      .value;
+
+  const error =
+    document.getElementById("loginError");
+
+
+  const user =
+    users.find(
+      u =>
+        u.username === username &&
+        u.password === password
+    );
+
+
+  if(!user){
+
+    error.style.display="block";
+
+    error.innerText =
+      "Përdoruesi ose fjalëkalimi nuk është i saktë.";
+
+    return;
+  }
+
+
+  if(user.blocked){
+
+    document.getElementById(
+      "loginPage"
+    ).style.display="none";
+
+    document.getElementById(
+      "blockedPage"
+    ).style.display="flex";
+
+    return;
+  }
+
+
+  currentUser = user;
+
+
+  document.getElementById(
+    "loginPage"
+  ).style.display="none";
+
+
+  document.getElementById(
+    "app"
+  ).style.display="block";
+
+
+  document.getElementById(
+    "currentUserName"
+  ).innerText=user.name;
+
+
+  document.getElementById(
+    "avatar"
+  ).innerText =
+    user.name
+      .charAt(0)
+      .toUpperCase();
+
+
+  refresh();
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  currentUser=null;
+
+  document.getElementById(
+    "app"
+  ).style.display="none";
+
+
+  document.getElementById(
+    "loginPage"
+  ).style.display="flex";
+
+
+  document.getElementById(
+    "username"
+  ).value="";
+
+
+  document.getElementById(
+    "password"
+  ).value="";
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const sectionNames={
+
+  home:"Kryefaqja",
+
+  cases:"Rastet",
+
+  agreements:"Ndërmjetësimet",
+
+  notifications:"Njoftimet",
+
+  contact:"Kontakto administratën",
+
+  qr:"QR Link",
+
+  admin:"Administrata"
+
+};
+
+
+function showSection(id,button){
+
+  if(id==="admin"){
+
+    if(
+      !currentUser ||
+      currentUser.role!=="admin"
+    ){
+
+      alert(
+        "Vetëm administratori mund të hyjë këtu."
+      );
+
+      return;
+    }
+
+  }
+
+
+  document
+    .querySelectorAll(".section")
+    .forEach(
+      s =>
+        s.classList.remove("active")
+    );
+
+
+  const section =
+    document.getElementById(id);
+
+
+  if(section)
+    section.classList.add("active");
+
+
+  document
+    .querySelectorAll(".navBtn")
+    .forEach(
+      b =>
+        b.classList.remove("active")
+    );
+
+
+  if(button)
+    button.classList.add("active");
+
+
+  document.getElementById(
+    "topTitle"
+  ).innerText =
+    sectionNames[id] || "Sistemi";
+
+
+  refresh();
+
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function openAdminLogin(){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert(
+      "Vetëm administratori mund të hyjë këtu."
+    );
+
+    return;
+  }
+
+
+  document.getElementById(
+    "adminLoginPage"
+  ).style.display="flex";
+
+
+  document.getElementById(
+    "adminPassword"
+  ).value="";
+
+
+  document.getElementById(
+    "adminLoginError"
+  ).style.display="none";
+
+}
+
+
+function closeAdminLogin(){
+
+  document.getElementById(
+    "adminLoginPage"
+  ).style.display="none";
+
+}
+
+
+function loginAdmin(){
+
+  const password =
+    document.getElementById(
+      "adminPassword"
+    ).value;
+
+
+  const error =
+    document.getElementById(
+      "adminLoginError"
+    );
+
+
+  if(password!==ADMIN_PASSWORD){
+
+    error.style.display="block";
+
+    error.innerText =
+      "Fjalëkalimi i administratës nuk është i saktë.";
+
+    return;
+  }
+
+
+  closeAdminLogin();
+
+  showSection("admin");
+
+}
+
+
+/* =========================
+   ADD USER
+========================= */
+
+function addUser(){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert("Nuk ke autorizim.");
+
+    return;
+  }
+
+
+  const name =
+    document.getElementById(
+      "newName"
+    ).value.trim();
+
+
+  const username =
+    document.getElementById(
+      "newUsername"
+    ).value.trim();
+
+
+  const password =
+    document.getElementById(
+      "newPassword"
+    ).value;
+
+
+  const role =
+    document.getElementById(
+      "newRole"
+    ).value;
+
+
+  if(
+    !name ||
+    !username ||
+    !password
+  ){
+
+    alert(
+      "Plotëso të gjitha fushat."
+    );
+
+    return;
+  }
+
+
+  if(
+    users.some(
+      u =>
+        u.username===username
+    )
+  ){
+
+    alert(
+      "Ky përdorues ekziston."
+    );
+
+    return;
+  }
+
+
+  users.push({
+
+    id:Date.now(),
+
+    name:name,
+
+    username:username,
+
+    password:password,
+
+    role:role,
+
+    blocked:false
+
+  });
+
+
+  saveAll();
+
+  refresh();
+
+
+  document.getElementById(
+    "newName"
+  ).value="";
+
+
+  document.getElementById(
+    "newUsername"
+  ).value="";
+
+
+  document.getElementById(
+    "newPassword"
+  ).value="";
+
+
+  alert(
+    "Përdoruesi u shtua me sukses."
+  );
+
+}
+
+
+/* =========================
+   BLOCK / UNBLOCK
+========================= */
+
+function toggleBlock(id){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert("Nuk ke autorizim.");
+
+    return;
+  }
+
+
+  const user =
+    users.find(
+      u =>
+        Number(u.id)===Number(id)
+    );
+
+
+  if(!user) return;
+
+
+  if(user.username==="admin"){
+
+    alert(
+      "Administratori kryesor nuk mund të bllokohet."
+    );
+
+    return;
+  }
+
+
+  user.blocked =
+    !user.blocked;
+
+
+  saveAll();
+
+  refresh();
+
+
+  alert(
+    user.blocked
+      ? "Përdoruesi u bllokua me sukses."
+      : "Përdoruesi u zhbllokua me sukses."
+  );
+
+}
+
+
+/* =========================
+   DELETE USER
+========================= */
+
+function deleteUser(id){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert("Nuk ke autorizim.");
+
+    return;
+  }
+
+
+  const user =
+    users.find(
+      u =>
+        Number(u.id)===Number(id)
+    );
+
+
+  if(!user) return;
+
+
+  if(user.username==="admin"){
+
+    alert(
+      "Administratori kryesor nuk mund të fshihet."
+    );
+
+    return;
+  }
+
+
+  if(
+    !confirm(
+      "A dëshiron ta fshish këtë përdorues?"
+    )
+  ){
+
+    return;
+  }
+
+
+  users =
+    users.filter(
+      u =>
+        Number(u.id)!==Number(id)
+    );
+
+
+  notifications =
+    notifications.filter(
+      n =>
+        Number(n.userId)!==Number(id)
+    );
+
+
+  saveAll();
+
+  refresh();
+
+}
+
+
+/* =========================
+   USER TABLE
+========================= */
+
+function renderUsers(){
+
+  const table =
+    document.getElementById(
+      "usersTable"
+    );
+
+
+  if(!table) return;
+
+
+  table.innerHTML="";
+
+
+  users.forEach(user=>{
+
+    const row =
+      document.createElement("tr");
+
+
+    row.innerHTML=`
+
+      <td>
+        ${escapeHTML(user.name)}
+      </td>
+
+      <td>
+        ${escapeHTML(user.username)}
+      </td>
+
+      <td>
+        ${
+          user.role==="admin"
+          ? "⚙️ Administrator"
+          : "👤 Përdorues"
+        }
+      </td>
+
+      <td>
+
+        <span class="status ${
+          user.blocked
+          ? "blocked"
+          : "active"
+        }">
+
+          ${
+            user.blocked
+            ? "Bllokuar"
+            : "Aktiv"
+          }
+
+        </span>
+
+      </td>
+
+      <td>
+
+        ${
+          user.username!=="admin"
+
+          ? `
+
+            <button
+              class="btn ${
+                user.blocked
+                ? "btnGreen"
+                : "btnYellow"
+              }"
+              onclick="toggleBlock(${user.id})"
+            >
+
+              ${
+                user.blocked
+                ? "🔓 Zhblloko"
+                : "🔒 Blloko"
+              }
+
+            </button>
+
+
+            <button
+              class="btn btnRed"
+              onclick="deleteUser(${user.id})"
+            >
+              🗑️ Fshi
+            </button>
+
+          `
+
+          : `
+            <small>
+              Administratori kryesor
+            </small>
+          `
+        }
+
+      </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+  });
+
+}
+
+
+/* =========================
+   NOTIFICATION USERS
+========================= */
+
+function renderNotificationUsers(){
+
+  const select =
+    document.getElementById(
+      "notificationUser"
+    );
+
+
+  if(!select) return;
+
+
+  select.innerHTML=
+    `
+      <option value="all">
+        👥 Të gjithë përdoruesit
+      </option>
+    `;
+
+
+  users
+    .filter(
+      u =>
+        u.role!=="admin"
+    )
+    .forEach(user=>{
+
+      select.innerHTML += `
+
+        <option value="${user.id}">
+          ${escapeHTML(user.name)}
+        </option>
+
+      `;
+
+    });
+
+}
+
+
+/* =========================
+   SEND NOTIFICATION
+========================= */
+
+function sendSimpleNotification(){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert("Nuk ke autorizim.");
+
+    return;
+  }
+
+
+  const target =
+    document.getElementById(
+      "notificationUser"
+    ).value;
+
+
+  const message =
+    document.getElementById(
+      "notificationMessage"
+    ).value.trim();
+
+
+  if(!message){
+
+    alert(
+      "Shkruaj mesazhin."
+    );
+
+    return;
+  }
+
+
+  const targets =
+    target==="all"
+
+    ? users.filter(
+        u =>
+          u.role!=="admin" &&
+          !u.blocked
+      )
+
+    : users.filter(
+        u =>
+          String(u.id)===
+          String(target)
+      );
+
+
+  if(targets.length===0){
+
+    alert(
+      "Nuk ka përdorues aktiv."
+    );
+
+    return;
+  }
+
+
+  targets.forEach(user=>{
+
+    notifications.push({
+
+      id:
+        Date.now()+
+        Math.random(),
+
+      userId:user.id,
+
+      title:"🔔 Njoftim i ri",
+
+      message:message,
+
+      read:false,
+
+      date:
+        new Date()
+        .toLocaleString("sq-AL")
+
+    });
+
+  });
+
+
+  saveAll();
+
+
+  document.getElementById(
+    "notificationMessage"
+  ).value="";
+
+
+  refresh();
+
+
+  alert(
+    "Njoftimi u dërgua me sukses."
+  );
+
+}
+
+
+/* =========================
+   NOTIFICATION LIST
+========================= */
+
+function renderNotifications(){
+
+  const list =
+    document.getElementById(
+      "notificationList"
+    );
+
+
+  if(!list) return;
+
+
+  if(!currentUser){
+
+    list.innerHTML="";
+
+    return;
+  }
+
+
+  const mine =
+    notifications
+      .filter(
+        n =>
+          Number(n.userId)===
+          Number(currentUser.id)
+      )
+      .sort(
+        (a,b) =>
+          Number(b.id)-Number(a.id)
+      );
+
+
+  if(mine.length===0){
+
+    list.innerHTML=`
+
+      <div style="
+        text-align:center;
+        padding:45px;
+        color:#8995a8
+      ">
+
+        🔔<br><br>
+
+        Nuk ke asnjë njoftim.
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML="";
+
+
+  mine.forEach(n=>{
+
+    const div =
+      document.createElement("div");
+
+
+    div.className =
+      "notification "+
+      (!n.read
+        ? "unread"
+        : "");
+
+
+    div.innerHTML=`
+
+      ${
+        !n.read
+        ? `<div class="unreadDot"></div>`
+        : ""
+      }
+
+
+      <h4>
+        ${escapeHTML(n.title)}
+      </h4>
+
+
+      <p>
+        ${escapeHTML(n.message)}
+      </p>
+
+
+      <small>
+        ${escapeHTML(n.date)}
+      </small>
+
+
+      ${
+        !n.read
+
+        ? `
+
+          <button
+            class="btn btnGray"
+            style="margin-top:10px"
+            onclick="markRead(${n.id})"
+          >
+            ✓ Shëno si të lexuar
+          </button>
+
+        `
+
+        : ""
+      }
+
+    `;
+
+
+    list.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================
+   READ
+========================= */
+
+function markRead(id){
+
+  const n =
+    notifications.find(
+      x =>
+        Number(x.id)===
+        Number(id)
+    );
+
+
+  if(n){
+
+    n.read=true;
+
+    saveAll();
+
+    refresh();
+
+  }
+
+}
+
+
+function markAllRead(){
+
+  if(!currentUser) return;
+
+
+  notifications
+    .filter(
+      n =>
+        Number(n.userId)===
+        Number(currentUser.id)
+    )
+    .forEach(
+      n =>
+        n.read=true
+    );
+
+
+  saveAll();
+
+  refresh();
+
+}
+
+
+/* =========================
+   BADGE
+========================= */
+
+function updateBadge(){
+
+  if(!currentUser) return;
+
+
+  const unread =
+    notifications.filter(
+      n =>
+        Number(n.userId)===
+        Number(currentUser.id) &&
+        !n.read
+    ).length;
+
+
+  const badge =
+    document.getElementById(
+      "menuNotificationBadge"
+    );
+
+
+  if(unread>0){
+
+    badge.style.display=
+      "inline-block";
+
+    badge.innerText =
+      unread>99
+      ? "99+"
+      : unread;
+
+  }else{
+
+    badge.style.display=
+      "none";
+
+  }
+
+
+  document.getElementById(
+    "statUnread"
+  ).innerText=unread;
+
+}
+
+
+/* =========================
+   CREATE NEW VERSION
+========================= */
+
+function continueVersion(){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert(
+      "Vetëm administratori mund të krijojë versione."
+    );
+
+    return;
+  }
+
+
+  const code =
+    document.getElementById(
+      "newVersionCode"
+    ).value.trim();
+
+
+  if(!code){
+
+    alert(
+      "Ngjite kodimin e ri para se të vazhdosh."
+    );
+
+    return;
+  }
+
+
+  let nextVersion = "V.2.3";
+
+
+  if(versions.length>0){
+
+    const last =
+      versions[0].version
+        .replace("V.","");
+
+
+    const parts =
+      last.split(".");
+
+
+    let major =
+      parseInt(parts[0]) || 2;
+
+
+    let minor =
+      parseInt(parts[1]) || 0;
+
+
+    minor++;
+
+
+    nextVersion =
+      "V."+major+"."+minor;
+
+  }
+
+
+  const version={
+
+    id:Date.now(),
+
+    version:nextVersion,
+
+    code:code,
+
+    date:
+      new Date()
+      .toLocaleString("sq-AL")
+
+  };
+
+
+  versions.unshift(version);
+
+
+  saveAll();
+
+
+  document.getElementById(
+    "newVersionCode"
+  ).value="";
+
+
+  const success =
+    document.getElementById(
+      "versionSuccess"
+    );
+
+
+  success.style.display=
+    "block";
+
+
+  success.innerHTML =
+    "✅ Versioni "+
+    nextVersion+
+    " u ruajt me sukses!";
+
+
+  renderVersions();
+
+  renderLatestVersion();
+
+
+  setTimeout(()=>{
+
+    success.style.display=
+      "none";
+
+  },5000);
+
+}
+
+
+/* =========================
+   VERSION HISTORY
+========================= */
+
+function renderVersions(){
+
+  const list =
+    document.getElementById(
+      "versionsList"
+    );
+
+
+  if(!list) return;
+
+
+  if(versions.length===0){
+
+    list.innerHTML=`
+
+      <p style="color:#8995a8">
+        Nuk ka ende versione të ruajtura.
+      </p>
+
+    `;
+
+    return;
+  }
+
+
+  list.innerHTML="";
+
+
+  versions.forEach(version=>{
+
+    const item =
+      document.createElement("div");
+
+
+    item.className=
+      "versionHistory";
+
+
+    item.innerHTML=`
+
+      <div class="versionHistoryTop">
+
+        <div>
+
+          <span class="versionTag">
+            ${escapeHTML(version.version)}
+          </span>
+
+        </div>
+
+        <span class="versionDate">
+          ${escapeHTML(version.date)}
+        </span>
+
+      </div>
+
+
+      <div style="margin-top:12px">
+
+        <button
+          class="btn btnPrimary"
+          onclick="toggleVersionCode(${version.id})"
+        >
+          👁️ Shiko kodin
+        </button>
+
+        <button
+          class="btn btnRed"
+          onclick="deleteVersion(${version.id})"
+        >
+          🗑️ Fshi versionin
+        </button>
+
+      </div>
+
+
+      <pre
+        id="versionCode-${version.id}"
+        class="codeView"
+      >${escapeHTML(version.code)}</pre>
+
+    `;
+
+
+    list.appendChild(item);
+
+  });
+
+}
+
+
+function toggleVersionCode(id){
+
+  const code =
+    document.getElementById(
+      "versionCode-"+id
+    );
+
+
+  if(!code) return;
+
+
+  code.style.display =
+    code.style.display==="block"
+    ? "none"
+    : "block";
+
+}
+
+
+function deleteVersion(id){
+
+  if(
+    !currentUser ||
+    currentUser.role!=="admin"
+  ){
+
+    alert(
+      "Vetëm administratori mund ta fshijë."
+    );
+
+    return;
+  }
+
+
+  if(
+    !confirm(
+      "A dëshiron ta fshish këtë version?"
+    )
+  ){
+
+    return;
+  }
+
+
+  versions =
+    versions.filter(
+      v =>
+        Number(v.id)!==
+        Number(id)
+    );
+
+
+  saveAll();
+
+  refresh();
+
+}
+
+
+/* =========================
+   LATEST VERSION
+========================= */
+
+function renderLatestVersion(){
+
+  const box =
+    document.getElementById(
+      "latestUpdate"
+    );
+
+
+  if(!box) return;
+
+
+  if(versions.length===0){
+
+    box.innerHTML=
+      "Nuk ka ende versione të ruajtura.";
+
+    return;
+  }
+
+
+  const v=versions[0];
+
+
+  box.innerHTML=`
+
+    <div class="versionHistory">
+
+      <div class="versionHistoryTop">
+
+        <span class="versionTag">
+          ${escapeHTML(v.version)}
+        </span>
+
+        <span class="versionDate">
+          ${escapeHTML(v.date)}
+        </span>
+
+      </div>
+
+
+      <p style="
+        margin-top:12px;
+        color:#4a5568
+      ">
+        Një version i ri i sistemit është ruajtur nga administratori.
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   QR
+========================= */
+
+function generateQR(){
+
+  const link =
+    document.getElementById(
+      "qrLink"
+    ).value.trim();
+
+
+  if(!link){
+
+    alert(
+      "Vendos një link."
+    );
+
+    return;
+  }
+
+
+  const image =
+    document.getElementById(
+      "qrImage"
+    );
+
+
+  const empty =
+    document.getElementById(
+      "qrEmpty"
+    );
+
+
+  image.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+
+    encodeURIComponent(link);
+
+
+  image.style.display=
+    "block";
+
+
+  empty.style.display=
+    "none";
+
+}
+
+
+function saveQR(){
+
+  const link =
+    document.getElementById(
+      "qrLink"
+    ).value.trim();
+
+
+  if(!link){
+
+    alert(
+      "Vendos një link."
+    );
+
+    return;
+  }
+
+
+  qrLink=link;
+
+  saveAll();
+
+  generateQR();
+
+
+  alert(
+    "QR Link u ruajt me sukses."
+  );
+
+}
+
+
+function generateAdminQR(){
+
+  const link =
+    document.getElementById(
+      "adminQRLink"
+    ).value.trim();
+
+
+  if(!link){
+
+    alert(
+      "Vendos një link."
+    );
+
+    return;
+  }
+
+
+  const image =
+    document.getElementById(
+      "adminQRImage"
+    );
+
+
+  image.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+
+    encodeURIComponent(link);
+
+
+  image.style.display=
+    "inline-block";
+
+}
+
+
+function saveAdminQR(){
+
+  const link =
+    document.getElementById(
+      "adminQRLink"
+    ).value.trim();
+
+
+  if(!link){
+
+    alert(
+      "Vendos një link."
+    );
+
+    return;
+  }
+
+
+  qrLink=link;
+
+  saveAll();
+
+  generateAdminQR();
+
+
+  document.getElementById(
+    "qrLink"
+  ).value=link;
+
+
+  generateQR();
+
+
+  alert(
+    "QR i sistemit u ruajt me sukses."
+  );
+
+}
+
+
+/* =========================
+   CASES
+========================= */
+
+function addCase(){
+
+  const title =
+    prompt(
+      "Shkruaj përshkrimin e shkurtër të rastit:"
+    );
+
+
+  if(!title) return;
+
+
+  cases.push({
+
+    id:Date.now(),
+
+    title:title,
+
+    date:
+      new Date()
+      .toLocaleDateString("sq-AL"),
+
+    status:"Hapur"
+
+  });
+
+
+  saveAll();
+
+  refresh();
+
+}
+
+
+function renderCases(){
+
+  const table =
+    document.getElementById(
+      "casesTable"
+    );
+
+
+  if(!table) return;
+
+
+  table.innerHTML="";
+
+
+  cases.forEach(c=>{
+
+    table.innerHTML += `
+
+      <tr>
+
+        <td>
+          #${c.id}
+        </td>
+
+        <td>
+          ${escapeHTML(c.title)}
+        </td>
+
+        <td>
+          ${escapeHTML(c.date)}
+        </td>
+
+        <td>
+
+          <span class="status active">
+            ${escapeHTML(c.status)}
+          </span>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   AGREEMENTS
+========================= */
+
+function addAgreement(){
+
+  const parties =
+    prompt(
+      "Shkruaj palët e marrëveshjes:"
+    );
+
+
+  if(!parties) return;
+
+
+  agreements.push({
+
+    id:Date.now(),
+
+    parties:parties,
+
+    date:
+      new Date()
+      .toLocaleDateString("sq-AL"),
+
+    status:"Përfunduar"
+
+  });
+
+
+  saveAll();
+
+  refresh();
+
+}
+
+
+function renderAgreements(){
+
+  const table =
+    document.getElementById(
+      "agreementsTable"
+    );
+
+
+  if(!table) return;
+
+
+  table.innerHTML="";
+
+
+  agreements.forEach(a=>{
+
+    table.innerHTML += `
+
+      <tr>
+
+        <td>
+          #${a.id}
+        </td>
+
+        <td>
+          ${escapeHTML(a.parties)}
+        </td>
+
+        <td>
+          ${escapeHTML(a.date)}
+        </td>
+
+        <td>
+
+          <span class="status active">
+            ${escapeHTML(a.status)}
+          </span>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   EMAIL
+========================= */
+
+function sendEmail(){
+
+  const subject =
+    document.getElementById(
+      "contactSubject"
+    ).value.trim();
+
+
+  const message =
+    document.getElementById(
+      "contactMessage"
+    ).value.trim();
+
+
+  if(
+    !subject ||
+    !message
+  ){
+
+    alert(
+      "Plotëso subjektin dhe mesazhin."
+    );
+
+    return;
+  }
+
+
+  const body =
+    "Përdoruesi: "+
+    (
+      currentUser
+      ? currentUser.name
+      : ""
+    )+
+    "\n\n"+
+    message;
+
+
+  window.location.href =
+    "mailto:musahalili49@gmail.com"+
+    "?subject="+
+    encodeURIComponent(subject)+
+    "&body="+
+    encodeURIComponent(body);
+
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+function refresh(){
+
+  renderUsers();
+
+  renderNotificationUsers();
+
+  renderNotifications();
+
+  renderVersions();
+
+  renderLatestVersion();
+
+  renderCases();
+
+  renderAgreements();
+
+  updateBadge();
+
+
+  document.getElementById(
+    "statUsers"
+  ).innerText=
+    users.length;
+
+
+  document.getElementById(
+    "statCases"
+  ).innerText=
+    cases.length;
+
+
+  document.getElementById(
+    "statAgreements"
+  ).innerText=
+    agreements.length;
+
+
+  if(qrLink){
+
+    document.getElementById(
+      "qrLink"
+    ).value=qrLink;
+
+
+    document.getElementById(
+      "adminQRLink"
+    ).value=qrLink;
+
+
+    generateQR();
+
+  }
+
+}
+
+
+/* =========================
+   ENTER LOGIN
+========================= */
+
+document.getElementById(
+  "password"
+).addEventListener(
+  "keydown",
+  function(e){
+
+    if(e.key==="Enter")
+      login();
+
+  }
+);
+
+
+/* =========================
+   START
+========================= */
+
+saveAll();
+
+refresh();
+
+</script>
+
+</body>
+</html>
